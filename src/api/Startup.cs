@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JobScheduler.Api.Infrastructure;
+using JobScheduler.Api.Models;
+using JobScheduler.Api.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 
 namespace JobScheduler.Api
 {
@@ -31,7 +34,10 @@ namespace JobScheduler.Api
 
             var mapper = config.CreateMapper();
             services.AddSingleton(mapper);
-            services.AddTransient<DataAccess>();
+
+            Func<IServiceProvider, IMongoDatabase> supplier = p => (new MongoClient("mongodb://localhost:27017")).GetDatabase("scheduling");
+            services.AddTransient<IMongoDatabase>(supplier);   
+            services.AddTransient<IRepositoryBase<Classification>, ClassificationRepository>();
             services.AddMvc();
         }
 

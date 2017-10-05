@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using JobScheduler.Api.Models;
 using JobScheduler.Api.Infrastructure;
+using JobScheduler.Api.Repositories;
 
 namespace JobScheduler.Api.Controllers
 {
@@ -13,37 +14,37 @@ namespace JobScheduler.Api.Controllers
     public class ClassificationsController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly DataAccess _dba;
+        private readonly IRepositoryBase<Classification> _classifications;
 
-        public ClassificationsController(IMapper mapper, DataAccess dba)
+        public ClassificationsController(IMapper mapper, IRepositoryBase<Classification> classifications)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _dba = dba ?? throw new ArgumentNullException(nameof(dba));
+            _classifications = classifications ?? throw new ArgumentNullException(nameof(classifications));
         }
 
         // GET api/classifications
         [HttpGet]
         public async Task<IEnumerable<ClassificationDto>> Get() 
-            => (await _dba.GetClassifications())?.Select(x =>_mapper.Map<ClassificationDto>(x));
+            => (await _classifications.GetAll())?.Select(x =>_mapper.Map<ClassificationDto>(x));
 
         // GET api/classifications/{id}
         [HttpGet("{id}")]
         public async Task<ClassificationDto> Get(string id) 
-            => _mapper.Map<ClassificationDto>(await _dba.GetClassification(id));
+            => _mapper.Map<ClassificationDto>(await _classifications.GetById(id));
 
         // POST api/classifications
         [HttpPost]
         public async Task<ClassificationDto> Post([FromBody] ClassificationDto classification) 
-            => _mapper.Map<ClassificationDto>(await _dba.InsertClassification(_mapper.Map<Classification>(classification)));
+            => _mapper.Map<ClassificationDto>(await _classifications.Insert(_mapper.Map<Classification>(classification)));
 
         // PUT api/classifications/{id}
         [HttpPut("{id}")]
         public async Task Put(string id,[FromBody] ClassificationDto classification)
-            => await _dba.UpdateClassification(id, _mapper.Map<Classification>(classification));
+            => await _classifications.Update(id, _mapper.Map<Classification>(classification));
 
         // DELETE api/classifications/{id}
         [HttpDelete("{id}")]
         public async Task<ClassificationDto> Delete(string id)
-            => _mapper.Map<ClassificationDto>(await _dba.DeleteClassification(id));
+            => _mapper.Map<ClassificationDto>(await _classifications.Remove(id));
     }
 }
