@@ -21,8 +21,29 @@ namespace JobScheduler.Api.Controllers
             _dba = dba ?? throw new ArgumentNullException(nameof(dba));
         }
 
-        // GET api/values
+        // GET api/classifications
         [HttpGet]
-        public async Task<IEnumerable<ClassificationDto>> Get() => (await _dba.GetClassifications())?.Select(x =>_mapper.Map<ClassificationDto>(x));
+        public async Task<IEnumerable<ClassificationDto>> Get() 
+            => (await _dba.GetClassifications())?.Select(x =>_mapper.Map<ClassificationDto>(x));
+
+        // GET api/classifications/{id}
+        [HttpGet("{id}")]
+        public async Task<ClassificationDto> Get(string id) 
+            => _mapper.Map<ClassificationDto>(await _dba.GetClassification(id));
+
+        // POST api/classifications
+        [HttpPost]
+        public async Task<ClassificationDto> Post([FromBody] ClassificationDto classification) 
+            => _mapper.Map<ClassificationDto>(await _dba.InsertClassification(_mapper.Map<Classification>(classification)));
+
+        // PUT api/classifications/{id}
+        [HttpPut("{id}")]
+        public async Task Put(string id,[FromBody] ClassificationDto classification)
+            => await _dba.UpdateClassification(id, _mapper.Map<Classification>(classification));
+
+        // DELETE api/classifications/{id}
+        [HttpDelete("{id}")]
+        public async Task<ClassificationDto> Delete(string id)
+            => _mapper.Map<ClassificationDto>(await _dba.DeleteClassification(id));
     }
 }
