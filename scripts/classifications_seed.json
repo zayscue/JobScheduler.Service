@@ -1,0 +1,128 @@
+
+  {
+    "name": "Elevated slabs",
+    "isactive": true,
+    "inspections": [
+      "Concrete",
+      "Post tensioning",
+      "Rebar/prep"
+    ]
+  }
+  {
+    "name": "Fireproofing",
+    "isactive": true,
+    "inspections": [
+      "Cohesion/adhesion/density",
+      "Prep",
+      "Thickness",
+      "Thin Film Intumescent"
+    ]
+  }
+  {
+    "name": "Footings",
+    "isactive": true,
+    "inspections": [
+      "Auger Cast piles",
+      "Bearing",
+      "Caissons",
+      "Concrete",
+      "Grade beams",
+      "Pile driving",
+      "Rebar"
+    ]
+  }
+  {
+    "name": "Masonry",
+    "isactive": true,
+    "inspections": [
+      "Grout",
+      "Prep/rebar/mortar"
+    ]
+  }
+  {
+    "name": "Post Installed Anchors",
+    "isactive": true,
+    "inspections": [
+      "Expansion Anchor",
+      "Epoxy",
+      "Rebar"
+    ]
+  }
+  {
+    "name": "Roadway/Parking Lot",
+    "isactive": true,
+    "inspections": [
+      "Topping Course",
+      "Stone Sub-base",
+      "Base Course"
+    ]
+  }
+  {
+    "name": "Sitework",
+    "isactive": true,
+    "inspections": [
+      "Curb and Gutter",
+      "Sidewalk"
+    ]
+  }
+  {
+    "name": "Slabs on grade",
+    "isactive": true,
+    "inspections": [
+      "Concrete",
+      "Post tensioning",
+      "Rebar/prep"
+    ]
+  }
+  {
+    "name": "Soils",
+    "isactive": true,
+    "inspections": [
+      "below grade wall backfill",
+      "Mass grading/Compaction",
+      "MSE Retaining wall",
+      "Proofroll",
+      "Sample Pickup",
+      "Utility backfill/Compaction"
+    ]
+  }
+  {
+    "name": "Specialty",
+    "isactive": true,
+    "inspections": [
+      "EIFS",
+      "Roofing",
+      "Waterproofing"
+    ]
+  }
+  {
+    "name": "Steel",
+    "isactive": true,
+    "inspections": [
+      "Light Gauge Framing",
+      "Members/plumb/bolted connection",
+      "NDE",
+      "Welding"
+    ]
+  }
+  {
+    "name": "Walls",
+    "isactive": true,
+    "inspections": [
+      "Rebar",
+      "Concrete"
+    ]
+  }
+  {
+    "name": "Third Party Inspection Program TPIP",
+    "isactive": true,
+    "inspections": [
+      "Building/Architectural",
+      "Mechanical",
+      "Electrical",
+      "Plumbing",
+      "Fire Alarm",
+      "Sprinkler",
+      "Other"
+    ]
+  }
