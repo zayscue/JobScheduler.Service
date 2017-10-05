@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using JobScheduler.Api.Models;
 using MongoDB.Driver;
 
-namespace JobScheduler.Api
+namespace JobScheduler.Api.Infrastructure
 {
     public class DataAccess
     {
@@ -17,7 +18,8 @@ namespace JobScheduler.Api
  
         public async Task<IEnumerable<Classification>> GetClassifications()
         {
-            return await (await _db.GetCollection<Classification>("classifications").FindAsync(_ => true))?.ToListAsync();
+            var classifications = await (await _db.GetCollection<Classification>("classifications").FindAsync(_ => true))?.ToListAsync();
+            return classifications;
         }
     }
 }

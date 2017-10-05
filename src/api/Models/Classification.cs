@@ -11,9 +11,17 @@ namespace JobScheduler.Api.Models
         [BsonElement("name")]
         public string Name { get; set; }
         [BsonElement("isactive")]
-        [JsonProperty(PropertyName = "isactive")]
         public bool IsActive { get; set; }
         [BsonElement("inspections")]
+        public ICollection<string> Inspections { get; set; }
+    }
+
+    public class ClassificationDto
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        [JsonProperty(PropertyName = "isactive")]
+        public bool IsActive { get; set; }
         public ICollection<string> Inspections { get; set; }
     }
 }
