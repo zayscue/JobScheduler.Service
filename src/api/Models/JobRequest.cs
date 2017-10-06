@@ -14,8 +14,6 @@ namespace JobScheduler.Api.Models
         public string JobNumber { get; set; }
         [BsonElement("company")]
         public string Company { get; set; }
-        [BsonElement("ecsOffice")]
-        public string EcsOffice { get; set; }
         [BsonElement("firstName")]
         public string FirstName { get; set; }
         [BsonElement("middleInitial")]
@@ -51,7 +49,6 @@ namespace JobScheduler.Api.Models
         public string Id { get; set; }
         public string JobNumber { get; set; }
         public string Company { get; set; }
-        public string EcsOffice { get; set; }
         public string FirstName { get; set; }
         public string MiddleInitial { get; set; }
         public string LastName { get; set; }
