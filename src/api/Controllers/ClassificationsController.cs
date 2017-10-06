@@ -10,7 +10,7 @@ using JobScheduler.Api.Repositories;
 
 namespace JobScheduler.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/classifications")]
     public class ClassificationsController : Controller
     {
         private readonly IMapper _mapper;

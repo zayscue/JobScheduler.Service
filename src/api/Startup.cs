@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace JobScheduler.Api
 {
@@ -38,7 +39,13 @@ namespace JobScheduler.Api
             Func<IServiceProvider, IMongoDatabase> supplier = p => (new MongoClient("mongodb://localhost:27017")).GetDatabase("scheduling");
             services.AddTransient<IMongoDatabase>(supplier);   
             services.AddTransient<IRepositoryBase<Classification>, ClassificationRepository>();
+            services.AddTransient<IRepositoryBase<JobRequest>, JobRequestRepository>();
             services.AddMvc();
+
+            services.AddSwaggerGen(c => 
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Job scheduling Api", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +55,13 @@ namespace JobScheduler.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c => 
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Job scheduling Api V1");
+            });
 
             app.UseMvc();
         }
