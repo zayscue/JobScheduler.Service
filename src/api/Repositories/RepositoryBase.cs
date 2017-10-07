@@ -7,7 +7,7 @@ using MongoDB.Driver.Builders;
 
 namespace JobScheduler.Api.Repositories
 {
-    public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
+    public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
     {
         internal readonly IMongoDatabase _db;
         internal readonly string _collectionName;
@@ -18,14 +18,14 @@ namespace JobScheduler.Api.Repositories
             _collectionName = collectionName ?? throw new ArgumentNullException(nameof(collectionName));
         }
 
-        public async Task<IEnumerable<TEntity>> GetAll()
+        public virtual async Task<IEnumerable<TEntity>> GetAll()
         {
             return await (await _db.GetCollection<TEntity>(_collectionName)
                 .FindAsync(_ => true))
                 ?.ToListAsync();
         }
 
-        public async Task<TEntity> GetById(object id)
+        public virtual async Task<TEntity> GetById(object id)
         {
             ObjectId objectId;
             if(!ObjectId.TryParse(id.ToString(), out objectId)) return null;
@@ -33,13 +33,13 @@ namespace JobScheduler.Api.Repositories
             return await (await _db.GetCollection<TEntity>(_collectionName).FindAsync(idFilter))?.SingleOrDefaultAsync();
         }
 
-        public async Task<TEntity> Insert(TEntity entity)
+        public virtual async Task<TEntity> Insert(TEntity entity)
         {
             await _db.GetCollection<TEntity>(_collectionName).InsertOneAsync(entity);
             return entity;
         }
 
-        public async Task<TEntity> Remove(object id)
+        public virtual async Task<TEntity> Remove(object id)
         {
             ObjectId objectId;
             if(!ObjectId.TryParse(id.ToString(), out objectId)) return null;
@@ -49,7 +49,7 @@ namespace JobScheduler.Api.Repositories
             return entity;
         }
 
-        public async Task Update(object id, TEntity entity)
+        public virtual async Task Update(object id, TEntity entity)
         {
             ObjectId objectId;
             if(!ObjectId.TryParse(id.ToString(), out objectId)) return;
